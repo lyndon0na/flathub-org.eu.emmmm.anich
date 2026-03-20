@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Anich
+Comment=支持超分辨率的在线动漫弹幕播放器
+Exec=/app/anich
+Icon=org.eu.emmmm.anich
+Type=Application
+Categories=AudioVideo;Player;GTK;
+StartupNotify=true
+StartupWMClass=anich

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.eu.emmmm.anich</id>
+  <name>Anich</name>
+  <summary>支持超分辨率的在线动漫弹幕播放器</summary>
+  <description>
+    <p>一个支持超分辨率的在线动漫弹幕APP。多平台，多番剧源，多弹幕，高清无广告。追番看番必备软件。</p>
+  </description>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Proprietary</project_license>
+  <url type="homepage">https://anich.emmmm.eu.org</url>
+  <developer_name>Sle2p</developer_name>
+  <launchable type="desktop-id">org.eu.emmmm.anich.desktop</launchable>
+  <releases>
+    <release version="1.5.8" date="2025-03-08"/>
+  </releases>
+</component>
