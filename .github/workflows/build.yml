@@ -16,15 +16,15 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y flatpak flatpak-builder
-          flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
       - name: Install GNOME SDK
         run: |
-          flatpak install -y flathub org.gnome.Platform//49 org.gnome.Sdk//49
+          flatpak install --user -y flathub org.gnome.Platform//49 org.gnome.Sdk//49
 
       - name: Build Flatpak
         run: |
-          flatpak-builder --repo=repo --force-clean build-dir org.eu.emmmm.anich.yml
+          flatpak-builder --user --repo=repo --force-clean build-dir org.eu.emmmm.anich.yml
 
       - name: Create bundle
         run: |
