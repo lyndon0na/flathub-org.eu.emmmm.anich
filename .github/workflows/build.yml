@@ -2,9 +2,8 @@ name: Build Flatpak
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 jobs:
@@ -21,3 +20,46 @@ jobs:
           bundle: anich.flatpak
           manifest-path: org.eu.emmmm.anich.yml
           cache-key: flatpak-builder-${{ github.sha }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: anich-flatpak
+          path: anich.flatpak
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: anich-flatpak
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Anich ${{ steps.get_version.outputs.VERSION }}
+          body: |
+            ## Anich Flatpak 包
+            
+            基于 Anich ${{ steps.get_version.outputs.VERSION }} 版本构建。
+            
+            ### 安装方法
+            ```bash
+            flatpak install --user anich.flatpak
+            ```
+            
+            ### 运行
+            ```bash
+            flatpak run org.eu.emmmm.anich
+            ```
+          files: anich.flatpak
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
